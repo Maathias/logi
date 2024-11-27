@@ -1,0 +1,49 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@page {
+	size: A4;
+	margin: 0;
+}
+
+html,
+body {
+	width: 210mm;
+	height: 297mm;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#title {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+	font-family: Arial, sans-serif;
+	color: #333;
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+	font-family: monospace;
+}
+
+#footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	font-family: Arial, sans-serif;
+	color: #333;
+	padding: 10px 0;
+	border-top: 1px solid #ccc;
+	user-select: all;
+	word-break: break-all;
+	font-family: monospace;
+}

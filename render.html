@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Logi genera</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="print.css" />
+
+		<script src="render.js"></script>
+		<script src="compression.js"></script>
+	</head>
+
+	<body>
+		<h2 id="title"></h2>
+
+		<div class="canvas" id="output"></div>
+
+		<div id="footer"></div>
+
+		<script>
+			// get base64 from query string
+			const urlParams = new URLSearchParams(window.location.search),
+				rawString = urlParams.get('s')
+
+			// decode base64
+			const bitstream = stringToBitstream(rawString),
+				drawing = bitstreamToDrawing(bitstream),
+				headers = drawingToHeaders(drawing)
+
+			const output = document.getElementById('output'),
+				footer = document.getElementById('footer'),
+				title = document.getElementById('title')
+
+			footer.innerText = rawString
+
+			renderHeaders(output, headers)
+			renderDrawing(output, drawing)
+
+			{
+				const data = new TextEncoder().encode(rawString),
+					hashBuffer = crypto.subtle
+						.digest('SHA-256', data)
+						.then((hashBuffer) => {
+							const hashArray = Array.from(new Uint8Array(hashBuffer)),
+								hashHex = hashArray
+									.map((b) => b.toString(16).padStart(2, '0'))
+									.join('')
+									.slice(0, 8)
+
+							let name = `logi_${hashHex}`
+
+							document.title = name
+							title.innerText = name
+						})
+			}
+		</script>
+	</body>
+</html>

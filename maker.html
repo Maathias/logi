@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Logi designer</title>
+
+		<link rel="stylesheet" href="style.css" />
+
+		<script src="input.js"></script>
+		<script src="render.js"></script>
+		<script src="compression.js"></script>
+	</head>
+	<body>
+		<!-- input size x and y -->
+		<input type="number" id="input-x" value="1" min="1" max="6" />
+		<input type="number" id="input-y" value="1" min="1" max="6" />
+
+		<button id="make">Make canvas</button>
+
+		<div class="canvas" id="canvas-input"></div>
+
+		<!-- <span id="string">---</span> -->
+
+		<br />
+
+		<button id="render">Render</button>
+
+		<button id="transpose-down">down</button>
+		<button id="transpose-up">up</button>
+		<button id="transpose-left">left</button>
+		<button id="transpose-right">right</button>
+
+		<script>
+			const canvasIn = document.getElementById('canvas-input')
+
+			const btnMake = document.getElementById('make'),
+				btnRender = document.getElementById('render'),
+				btnTransposeDown = document.getElementById('transpose-down'),
+				btnTransposeUp = document.getElementById('transpose-up'),
+				btnTransposeLeft = document.getElementById('transpose-left'),
+				btnTransposeRight = document.getElementById('transpose-right'),
+				string = document.getElementById('string')
+
+			btnMake.onclick = () => {
+				const x = parseInt(document.getElementById('input-x').value),
+					y = parseInt(document.getElementById('input-y').value)
+
+				canvasIn.innerHTML = ''
+				renderInput(canvasIn, x, y)
+			}
+
+			btnTransposeDown.onclick = () => transposeInput(canvasIn, 1, 0)
+			btnTransposeUp.onclick = () => transposeInput(canvasIn, -1, 0)
+			btnTransposeLeft.onclick = () => transposeInput(canvasIn, 0, -1)
+			btnTransposeRight.onclick = () => transposeInput(canvasIn, 0, 1)
+
+			canvasIn.addEventListener('mouseup', (event) => {})
+
+			btnRender.onclick = () => {
+				let drawing = canvasToDrawing(canvasIn),
+					bitstream = drawingToBitstream(drawing),
+					base64 = bitstreamToString(bitstream)
+
+				window.open(`render.html?s=${base64}`)
+			}
+		</script>
+	</body>
+</html>

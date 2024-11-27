@@ -1,0 +1,116 @@
+.canvas {
+	/* background-color: white; */
+	--side: 5mm;
+	--headers: 6rem;
+	user-select: none;
+}
+
+.boxes > div {
+	height: var(--side);
+}
+
+.boxes > div:nth-child(5n):not(:last-child) > box {
+	border-bottom-width: 2px;
+}
+
+.boxes > div > box:nth-child(5n):not(:last-child) {
+	border-right-width: 2px;
+}
+
+.boxes > div:not(:first-child) {
+	border-left: none;
+}
+
+.boxes box {
+	width: var(--side);
+	height: var(--side);
+	box-sizing: border-box;
+	border: 1px solid black;
+	display: inline-block;
+}
+
+.boxes box:not(:first-child) {
+	border-left: none;
+}
+
+.boxes > div:not(:first-child) box {
+	border-top: none;
+}
+
+box[d='empty'] {
+	/* background-color: white; */
+}
+
+box[d='full'] {
+	background-color: black;
+}
+
+.columns {
+	display: flex;
+	max-width: min-content;
+	margin-left: var(--headers);
+}
+
+.columns div {
+	width: var(--side);
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-bottom: none;
+	padding-top: 0.5em;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+
+.columns > div:nth-child(5n):not(:last-child) {
+	border-right-width: 2px;
+}
+
+.columns div:not(:first-child) {
+	border-left: none;
+}
+
+.rows {
+	display: flex;
+	flex-direction: column;
+	width: var(--headers);
+	float: left;
+}
+
+.rows div {
+	border: 1px solid black;
+	border-right: none;
+
+	text-align: right;
+	height: var(--side);
+	min-width: var(--side);
+	box-sizing: border-box;
+	padding-right: 0.5em;
+}
+
+.rows > div:nth-child(5n):not(:last-child) {
+	border-bottom-width: 2px;
+}
+
+.rows div:not(:first-child) {
+	border-top: none;
+}
+
+.columns span {
+	display: block;
+	text-align: center;
+}
+
+.rows span {
+	display: block;
+	float: right;
+	padding-left: 0.5em;
+	transform: translate(0, -2px);
+}
+
+.debug {
+	font-family: monospace;
+	/* break when overflows screen */
+	overflow-wrap: anywhere;
+}
